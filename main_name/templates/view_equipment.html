@@ -1,21 +1,73 @@
 {% extends 'inventory/base.html' %}
 
 {% block content %}
-<h1>View Equipment</h1>
-<h2>Search Equipment</h2>
+  <style>
+    /* CSS styles */
+    body {
+      background-color: #f0f6fc; /* light blue */
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    h2 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    form {
+      margin-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .scrollable-table {
+      max-height: 500px; /* Adjust the height as needed */
+      overflow: auto;
+    }
+    .btn-primary {
+      background-color: #007bff; /* blue */
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-top: 20px; /* Add some spacing */
+    }
+    .btn-primary:hover {
+      background-color: #0056b3; /* darker blue */
+    }
+  </style>
+
+  <h1>View Equipment</h1>
+  <h2>Search Equipment</h2>
   <form method="get" action="{% url 'search_equipment' %}">
     <label for="search_query">Search:</label>
     <input type="text" id="search_query" name="q">
     <button type="submit">Search</button>
   </form>
-  <ul>
-<h2>Equipment List</h2>
+
+  <h2>Equipment List</h2>
 
   <form method="get" action="{% url 'view_equipment' %}">
     <label for="equipment_type">Filter by Equipment Type:</label>
     <input type="text" id="equipment_type" name="equipment_type">
     <button type="submit">Apply Filters</button>
   </form>
+
   <form method="get" action="{% url 'view_equipment' %}">
     <label for="sort_by">Sort By:</label>
     <select name="sort_by" id="sort_by">
@@ -27,23 +79,26 @@
     <button type="submit">Sort</button>
   </form>
 
-  <table>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Quantity</th>
-      <th>Availability</th>
-      <!-- Add more table headers as needed -->
-    </tr>
-    {% for equipment in equipments %}
-    <tr>
-      <td>{{ equipment.name }}</td>
-      <td>{{ equipment.type }}</td>
-      <td>{{ equipment.quantity }}</td>
-      <td>{{ equipment.availability }}</td>
-      <td><a href="{% url 'make_booking' equipment.id %}">Book Now</a></td>
-    </tr>
-    {% endfor %}
-  </table>
+  <div class="scrollable-table">
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Quantity</th>
+        <th>Availability</th>
+        <!-- Add more table headers as needed -->
+      </tr>
+      {% for equipment in equipments %}
+      <tr>
+        <td>{{ equipment.name }}</td>
+        <td>{{ equipment.type }}</td>
+        <td>{{ equipment.quantity }}</td>
+        <td>{{ equipment.availability }}</td>
+        <td><a href="{% url 'make_booking' equipment.id %}">Book Now</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <a href="{% url 'user_dashboard'  %}" class="btn btn-primary">User Dashboard</a>
 
 {% endblock %}

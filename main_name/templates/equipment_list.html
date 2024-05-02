@@ -1,37 +1,100 @@
 {% extends 'inventory/base.html' %}
 
 {% block content %}
-<h2>Equipment List</h2>
-<p>Total Equipment Count: {{ total_count }}</p>
-<p>Available Equipment Count: {{ available_count }}</p>
-<p>Unavailable Equipment Count: {{ booked_count }}</p>
-<p>On-Site Equipment Count: {{ on_site_count }}</p>
+  <style>
+    /* CSS styles */
+    body {
+      background-color: #f0f6fc; /* light blue */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+      padding: 20px;
+    }
+    h2 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .table-container {
+      max-height: 400px; /* Adjust the height as needed */
+      overflow: auto;
+    }
+    table {
+      width: 100%;
+      margin-bottom: 20px;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+      color: #333;
+    }
+    th {
+      background-color: #007bff;
+      color: #fff;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    .button-container {
+      margin-bottom: 20px;
+    }
+  </style>
 
-<table>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Quantity</th>
-      <th>Availability</th>
-      <th>Location</th>
-      <th>On-Site Only</th>
-      <!-- Add more table headers as needed -->
-    </tr>
-    {% for equipment in equipments %}
-    <tr>
-      <td>{{ equipment.name }}</td>
-      <td>{{ equipment.type }}</td>
-      <td>{{ equipment.quantity }}</td>
-      <td>{{ equipment.availability }}</td>
-      <td>{{ equipment.location }}</td>
-      <td>{{ equipment.on_site_only }}</td>
-      <td><a href="{% url 'edit_equipment' equipment.id %}">Edit</a></td>
-      <td><a href="{% url 'delete_equipment' equipment.id %}">Delete</a></td>
-    </tr>
-    {% endfor %}
-  </table>
-<br>
-<a href="{% url 'add_equipment' %}">Add Equipment</a>
-<a href="{% url 'admin_dashboard' %}" class="btn btn-primary">Admin Dashboard</a>
+  <div class="container">
+    <h2>Equipment List</h2>
+    <p>Total Equipment Count: {{ total_count }}</p>
+    <p>Available Equipment Count: {{ available_count }}</p>
+    <p>Unavailable Equipment Count: {{ booked_count }}</p>
+    <p>On-Site Equipment Count: {{ on_site_count }}</p>
+
+    <div class="table-container">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Quantity</th>
+          <th>Availability</th>
+          <th>Location</th>
+          <th>On-Site Only</th>
+        </tr>
+        {% for equipment in equipments %}
+        <tr>
+          <td>{{ equipment.name }}</td>
+          <td>{{ equipment.type }}</td>
+          <td>{{ equipment.quantity }}</td>
+          <td>{{ equipment.availability }}</td>
+          <td>{{ equipment.location }}</td>
+          <td>{{ equipment.on_site_only }}</td>
+          <td><a href="{% url 'edit_equipment' equipment.id %}">Edit</a></td>
+          <td><a href="{% url 'delete_equipment' equipment.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+    <div class="button-container">
+      <a href="{% url 'add_equipment' %}" class="btn btn-primary">Add Equipment</a>
+      <a href="{% url 'admin_dashboard' %}" class="btn btn-primary">Admin Dashboard</a>
+    </div>
+  </div>
 
 {% endblock %}

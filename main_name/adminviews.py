@@ -12,8 +12,9 @@ def staff_member_required(view_func):
     @wraps(view_func)
     def _wrapped_view(request, *args, **kwargs):
         if not request.user.is_staff:
+            return view_func(request, *args, **kwargs)
+        else:
             return HttpResponseForbidden("You are not authorized to access this page.")
-        return view_func(request, *args, **kwargs)
     return _wrapped_view
 
 @login_required

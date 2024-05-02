@@ -1,23 +1,95 @@
 {% extends 'inventory/base.html' %}
 {% block content %}
-<h2>Pending Booking Requests</h2>
-{% for booking in pending_bookings %}
-    <div>
-        <p>Equipment: {{ booking.equipment }}</p>
-        <p>Date: {{ booking.date }}</p>
-        <p>Duration: {{ booking.duration }}</p>
-        <p>Purpose: {{ booking.purpose }}</p>
-        <p>User: {{ booking.user }}</p>
-        <form method="post" action="{% url 'approve_booking' booking.id %}">
-            {% csrf_token %}
-            <input type="submit" value="Approve">
-        </form>
-        <form method="post" action="{% url 'reject_booking' booking.id %}">
-            {% csrf_token %}
-            <input type="submit" value="Reject">
-        </form>
+  <style>
+    /* CSS styles */
+    body {
+      background-color: #f5f5f5; /* light gray */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+      padding: 50px; /* Increased padding */
+    }
+    h2 {
+      color: #333; /* dark gray */
+      font-size: 24px; /* Increased font size */
+      margin-bottom: 20px; /* Increased margin */
+    }
+    .booking-info {
+      background-color: #fff; /* white */
+      padding: 20px;
+      margin-bottom: 20px; /* Increased margin */
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added shadow */
+    }
+    .booking-info p {
+      margin-bottom: 10px;
+      color: #333; /* dark gray */
+    }
+    .booking-actions {
+      margin-top: 10px;
+    }
+    .booking-actions input[type="submit"] {
+      background-color: #007bff; /* blue */
+      color: #fff; /* white */
+      padding: 10px 20px; /* Increased padding */
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px; /* Increased font size */
+      cursor: pointer;
+    }
+    .booking-actions input[type="submit"]:hover {
+      background-color: #0056b3; /* darker blue */
+    }
+    .admin-button-container {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+    }
+    .admin-dashboard-button {
+      background-color: #0056b3; /* darker blue */
+      color: #fff; /* white */
+      padding: 15px 30px; /* Increased padding */
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      font-size: 20px; /* Increased font size */
+      cursor: pointer;
+    }
+    .admin-dashboard-button:hover {
+      background-color: #003f7f; /* even darker blue */
+    }
+  </style>
+
+  <div class="container">
+    <h2>Pending Booking Requests</h2>
+    {% for booking in pending_bookings %}
+      <div class="booking-info">
+          <p>Equipment: {{ booking.equipment }}</p>
+          <p>Date: {{ booking.date }}</p>
+          <p>Duration: {{ booking.duration }}</p>
+          <p>Purpose: {{ booking.purpose }}</p>
+          <p>User: {{ booking.user }}</p>
+          <div class="booking-actions">
+            <form method="post" action="{% url 'approve_booking' booking.id %}">
+              {% csrf_token %}
+              <input type="submit" value="Approve">
+            </form>
+            <form method="post" action="{% url 'reject_booking' booking.id %}">
+              {% csrf_token %}
+              <input type="submit" value="Reject">
+            </form>
+          </div>
+      </div>
+    {% endfor %}
+    <div class="admin-button-container">
+      <a href="{% url 'admin_dashboard' %}" class="admin-dashboard-button">Admin Dashboard</a>
     </div>
-{% endfor %}
-<a href="{% url 'admin_dashboard' %}" class="btn btn-primary">Admin Dashboard</a>
+  </div>
 
 {% endblock %}

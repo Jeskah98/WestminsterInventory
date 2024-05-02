@@ -1,7 +1,41 @@
 {% extends 'inventory/base.html' %}
 
 {% block content %}
-<h1>Welcome to Inventory Management</h1>
-<a href="{% url 'register' %}">Register</a>
-<a href="{% url 'login' %}">Login</a>
+  <style>
+    /* CSS styles */
+    body {
+      background-color: #e0f2f1; /* baby blue */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    a {
+      display: inline-block;
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+    a:hover {
+      background-color: #0056b3;
+    }
+  </style>
+
+  <div class="container">
+    <h1>Welcome to Inventory Management</h1>
+    <a href="{% url 'register' %}">Register</a>
+    <a href="{% url 'login' %}">Login</a>
+  </div>
 {% endblock %}

@@ -1,27 +1,86 @@
 {% extends 'inventory/base.html' %}
 
 {% block content %}
-  <h2>Inventory Status Report</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Return Date</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for booking in overdue_bookings %}
-      <tr>
-        <td>{{ booking.equipment.name }}</td>
-        <td>{{ booking.equipment.type }}</td>
-        <td>{{ booking.end_date }}</td>
-        <td>OVERDUE</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  <a href="{% url 'admin_dashboard' %}" class="btn btn-primary">Admin Dashboard</a>
+  <style>
+    /* CSS styles */
+    body {
+      background-color: #f0f6fc; /* light blue */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+      padding: 20px;
+    }
+    h2 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      margin-bottom: 20px;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+      color: #333;
+    }
+    th {
+      background-color: #007bff;
+      color: #fff;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    .button-container {
+      margin-bottom: 20px;
+    }
+  </style>
+
+  <div class="container">
+    <h2>Inventory Status Report</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Return Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for booking in overdue_bookings %}
+        <tr>
+          <td>{{ booking.equipment.name }}</td>
+          <td>{{ booking.equipment.type }}</td>
+          <td>{{ booking.end_date }}</td>
+          <td>OVERDUE</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="button-container">
+      <a href="{% url 'admin_dashboard' %}" class="btn btn-primary">Admin Dashboard</a>
+    </div>
+  </div>
 
 {% endblock %}

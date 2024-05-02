@@ -30,4 +30,5 @@ urlpatterns = [
     path('equipment_report/', adminviews.equipment_usage_history, name='equipment_report'),
     path('return_booking/<int:booking_id>/', views.return_booking, name='return_booking'),
     path('book_from_past_booking/<int:booking_id>/', views.book_from_past_booking, name='book_from_past_booking'),
+    path('cancel_booking/<int:booking_id>/', views.cancel_booking, name='cancel_booking'),
 ]

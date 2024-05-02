@@ -10,10 +10,9 @@ class User(AbstractUser):
     ]
     role = models.CharField(max_length=10, choices=role_choices)
     class Meta:
-        # Ensure the model is registered in the correct app_label
         app_label = 'main_name'
 
-    # Specify unique related_name arguments for the conflicting fields
+ 
     groups = models.ManyToManyField(
         Group,
         verbose_name=_('groups'),
@@ -65,14 +64,21 @@ class Booking(models.Model):
     STATUS_PENDING = 'pending'
     STATUS_APPROVED = 'approved'
     STATUS_REJECTED = 'rejected'
+    STATUS_CANCELLED = 'cancelled'
     
     STATUS_CHOICES = [
         (STATUS_PENDING, 'Pending'),
         (STATUS_APPROVED, 'Approved'),
         (STATUS_REJECTED, 'Rejected'),
+        (STATUS_CANCELLED, 'Cancelled'),
     ]
     status = models.CharField(max_length=10, choices=STATUS_CHOICES)
     
+    def cancel(self):
+        self.status = 'cancelled'
+        self.save()
+        self.equipment.quantity += 1 
+        self.equipment.save()
 
 
 class Report(models.Model):

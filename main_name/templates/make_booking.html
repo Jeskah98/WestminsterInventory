@@ -1,21 +1,52 @@
 {% extends 'inventory/base.html' %}
+
 {% block content %}
+  <style>
+    /* CSS styles */
+    body {
+      background-color: #f0f6fc; /* light blue */
+      padding: 20px;
+    }
+    h2 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    form {
+      width: 50%; /* Adjust the width as needed */
+      margin: 0 auto; /* Center the form horizontally */
+      background-color: #fff; /* White background */
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    }
+    button[type="submit"], .btn-primary {
+      background-color: #007bff; /* blue */
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      display: block; /* Make the button a block element */
+      margin: 20px auto 0; /* Center the button and add spacing */
+    }
+    button[type="submit"]:hover, .btn-primary:hover {
+      background-color: #0056b3; /* darker blue */
+    }
+    .on-site-only-message {
+      color: #ff0000; /* Red */
+    }
+  </style>
+
   <h2>Make Booking - {{ equipment.name }}</h2>
   <form method="post">
     {% csrf_token %}
-    <div>
-      <label for="id_user">User:</label>
-      <input type="text" id="id_user" value="{{ form.instance.user.username }}" readonly>
-    </div>
-    <div>
-        <label for="id_equipment">Equipment:</label>
-        <input type="text" id="id_equipment" value="{{ equipment.name }}" readonly>
-    </div>
     {{ form.as_p }}
     {% if form.instance.equipment.on_site_only %}
-        <p>This item is for on-site use only. It cannot be taken off-site.</p>
+        <p class="on-site-only-message">This item is for on-site use only. It cannot be taken off-site.</p>
     {% endif %}
     <button type="submit">Submit Booking</button>
   </form>
-
+  <a href="{% url 'view_equipment' %}" class="btn btn-primary">View Equipment</a>
 {% endblock %}

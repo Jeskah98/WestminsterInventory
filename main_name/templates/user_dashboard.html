@@ -1,66 +1,121 @@
 {% extends 'inventory/base.html' %}
 
 {% block content %}
-<h1>User Dashboard</h1>
-<h3>Browse Inventory:</h3>
-<a href="{% url 'view_equipment' %}" class="btn btn-primary">View Equipment</a>
-<h3>Profile</h3>
+  <style>
+    /* CSS styles */
+    body {
+      background-color: #f0f6fc; /* light blue */
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    h2, h3 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    table {
+      margin: 0 auto; /* Center the table */
+    }
+    .btn-primary {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    .content-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+    .booking-details {
+      margin-bottom: 20px;
+    }
+    .booking-button {
+      margin-top: 10px;
+      list-style-type: none; /* Remove bullet point */
+    }
+  </style>
 
-{% if messages %}
-    <div class="alert alert-danger">
+  <div class="content-container">
+    <h1>User Dashboard</h1>
+    <table>
+      <tr>
+        <td>
+          <h3>Browse Inventory:</h3>
+          <a href="{% url 'view_equipment' %}" class="btn btn-primary">View Equipment</a>
+        </td>
+      </tr>
+    </table>
+
+    {% if messages %}
+      <div class="alert alert-danger">
         <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-{% endif %}
-
-<h2>Bookings:</h3>
-<h3>Pending Bookings</h3>
-<ul>
-    {% for booking in pending_bookings %}
-      <li>{{ booking.equipment }} - {{ booking.date }}</li>->
-    {% empty %}
-      <li>No pending bookings</li>
-    {% endfor %}
-  </ul>
-  
-  <h3>Your Current Bookings</h3>
-  {% if current_bookings %}
-      <ul>
-          {% for booking in current_bookings %}
-              <li>
-                {{ booking.equipment }} - {{ booking.start_date }} to {{ booking.end_date }}
-                <form method="post" action="{% url 'return_booking' booking.id %}">
-                  {% csrf_token %}
-                  <button type="submit">Return</button>
-                </form>
-              </li>
+          {% for message in messages %}
+            <li>{{ message }}</li>
           {% endfor %}
-      </ul>
-  {% else %}
-      <p>No current reservations or bookings.</p>
-  {% endif %}
+        </ul>
+      </div>
+    {% endif %}
 
-  <h3>Past Bookings</h3>
-  {% if past_bookings %}
+    <h1>Bookings:</h1>
+    <h3>Pending Bookings</h3>
+    <ul>
+      {% for booking in pending_bookings %}
+        <li>{{ booking.equipment }} - {{ booking.date }}</li>
+      {% empty %}
+        <li>No pending bookings</li>
+      {% endfor %}
+    </ul>
+
+    <h3>Your Current Bookings</h3>
+    {% if current_bookings %}
       <ul>
-          {% for past_booking in past_bookings %}
-              <li>{{ past_booking.equipment }} - {{ past_booking.start_date }} to {{ past_booking.end_date }}</li>
-              <a href="{% url 'book_from_past_booking' past_booking.id %}" class="btn btn-primary">Book Again</a>
-              {% endfor %}
+        {% for booking in current_bookings %}
+          <li class="booking-details">
+            {{ booking.equipment }} - {{ booking.start_date }} to {{ booking.end_date }}
+            <form method="post" action="{% url 'return_booking' booking.id %}">
+              {% csrf_token %}
+              <button type="submit">Return</button>
+            </form>
+          </li>
+        {% endfor %}
       </ul>
-  {% else %}
+    {% else %}
+      <p>No current reservations or bookings.</p>
+    {% endif %}
+
+    <h3>Past Bookings</h3>
+    {% if past_bookings %}
+      <ul>
+        {% for past_booking in past_bookings %}
+          <li class="booking-details">{{ past_booking.equipment }} - {{ past_booking.start_date }} to {{ past_booking.end_date }}</li>
+          <li class="booking-button"><a href="{% url 'book_from_past_booking' past_booking.id %}" class="btn btn-primary">Book Again</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
       <p>No past bookings.</p>
-  {% endif %}
-  <h3>Rejected Bookings</h3>
-  <ul>
-    {% for booking in rejected_bookings %}
-      <li>{{ booking.equipment }} - {{ booking.date }}</li>
-      <!-- Add more details as needed -->
-    {% empty %}
-      <li>No rejected bookings</li>
-    {% endfor %}
-  </ul>
+    {% endif %}
+
+    <h3>Rejected Bookings</h3>
+    <ul>
+      {% for booking in rejected_bookings %}
+        <li>{{ booking.equipment }} - {{ booking.date }}</li>
+        <!-- Add more details as needed -->
+      {% empty %}
+        <li>No rejected bookings</li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endblock %}

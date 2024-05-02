@@ -141,16 +141,6 @@ def view_bookings(request):
     pending_bookings = Booking.objects.filter(status='pending')
     return render(request, 'view_bookings.html', {'pending_bookings': pending_bookings})
 
-@login_required
-def manage_equipment(request):
-    equipments = Equipment.objects.all()
-    return render(request, 'manage_equipment.html', {'equipments': equipments})
-
-
-@login_required
-def generate_reports(request):
-    # Implement logic to generate reports
-    return render(request, 'generate_reports.html')
 
 @login_required
 def return_booking(request, booking_id):
@@ -193,14 +183,19 @@ def book_from_past_booking(request, booking_id):
             'equipment': past_booking.equipment,
             'start_date': past_booking.start_date,
             'end_date': past_booking.end_date,
-            # Add other fields as needed
         }
         form = BookingForm(initial=initial_data)
     
     return render(request, 'book_from_past_booking.html', {'form': form})
 
 
-
+def cancel_booking(request, booking_id):
+    try:
+        booking = Booking.objects.get(id=booking_id)
+        booking.cancel()  
+        return redirect('user_dashboard')  # Redirect to the dashboard after cancellation
+    except Booking.DoesNotExist:
+        return render(request, 'error.html', {'message': 'Booking not found.'})
 
 
 

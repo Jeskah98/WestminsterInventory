@@ -1,9 +1,61 @@
 {% extends 'inventory/base.html' %}
+
 {% block content %}
-<h2>Add Equipment</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Add</button>
-</form>
+  <style>
+    /* CSS styles */
+    body {
+      background-color: #f0f6fc; /* light blue */
+      padding: 20px;
+    }
+    h2 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    form {
+      width: 50%; /* Adjust the width as needed */
+      margin: 0 auto; /* Center the form horizontally */
+      background-color: #fff; /* White background */
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    }
+    button[type="submit"] {
+      background-color: #007bff; /* blue */
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      display: block; /* Make the button a block element */
+      margin: 20px auto 0; /* Center the button and add spacing */
+    }
+    button[type="submit"]:hover {
+      background-color: #0056b3; /* darker blue */
+    }
+    .btn-primary {
+      display: block; /* Make the button a block element */
+      margin: 20px auto 0; /* Center the button and add spacing */
+      background-color: #007bff; /* blue */
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3; /* darker blue */
+    }
+  </style>
+
+  <h2>Add Equipment</h2>
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Add</button>
+  </form>
+  <a href="{% url 'equipment_list' %}" class="btn btn-primary">Equipment list</a>
 {% endblock %}

@@ -1,10 +1,48 @@
 {% extends 'inventory/base.html' %}
 
 {% block content %}
-<h2>User Registration</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-</form>
+  <style>
+    /* CSS styles */
+    body {
+      background-color: #e0f2f1; /* baby blue */
+    }
+    h2 {
+      color: #333;
+      font-size: 20px; /* Smaller font size */
+      margin-bottom: 15px; /* Reduced margin */
+    }
+    form {
+      background-color: #fff;
+      padding: 15px; /* Reduced padding */
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 8px; /* Smaller padding */
+      margin-bottom: 8px; /* Reduced margin */
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    button[type="submit"] {
+      background-color: #007bff; /* blue */
+      color: #fff;
+      padding: 8px 16px; /* Smaller padding */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button[type="submit"]:hover {
+      background-color: #0056b3; /* darker blue */
+    }
+  </style>
+
+  <h2>User Registration</h2>
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Register</button>
+  </form>
 {% endblock %}
