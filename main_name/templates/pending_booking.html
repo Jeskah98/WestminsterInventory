@@ -1,0 +1,23 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+<h2>Pending Booking Requests</h2>
+{% for booking in pending_bookings %}
+    <div>
+        <p>Equipment: {{ booking.equipment }}</p>
+        <p>Date: {{ booking.date }}</p>
+        <p>Duration: {{ booking.duration }}</p>
+        <p>Purpose: {{ booking.purpose }}</p>
+        <p>User: {{ booking.user }}</p>
+        <form method="post" action="{% url 'approve_booking' booking.id %}">
+            {% csrf_token %}
+            <input type="submit" value="Approve">
+        </form>
+        <form method="post" action="{% url 'reject_booking' booking.id %}">
+            {% csrf_token %}
+            <input type="submit" value="Reject">
+        </form>
+    </div>
+{% endfor %}
+<a href="{% url 'admin_dashboard' %}" class="btn btn-primary">Admin Dashboard</a>
+
+{% endblock %}

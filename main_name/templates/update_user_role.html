@@ -1,0 +1,14 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+<h2>Update User Role</h2>
+<form method="post">
+  {% csrf_token %}
+  <label for="new_role">New Role:</label>
+  <select name="new_role" id="new_role">
+    <option value="admin">Admin</option>
+    <option value="staff">Staff</option>
+    <option value="student">Student</option>
+  </select>
+  <button type="submit">Update Role</button>
+</form>
+{% endblock %}

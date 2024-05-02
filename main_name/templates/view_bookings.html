@@ -1,0 +1,9 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+  <h2>Pending Bookings</h2>
+  <ul>
+    {% for booking in pending_bookings %}
+      <li>{{ booking.user.username }} - {{ booking.equipment.name }} - {{ booking.date }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

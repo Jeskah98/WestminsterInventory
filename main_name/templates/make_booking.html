@@ -1,0 +1,21 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+  <h2>Make Booking - {{ equipment.name }}</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div>
+      <label for="id_user">User:</label>
+      <input type="text" id="id_user" value="{{ form.instance.user.username }}" readonly>
+    </div>
+    <div>
+        <label for="id_equipment">Equipment:</label>
+        <input type="text" id="id_equipment" value="{{ equipment.name }}" readonly>
+    </div>
+    {{ form.as_p }}
+    {% if form.instance.equipment.on_site_only %}
+        <p>This item is for on-site use only. It cannot be taken off-site.</p>
+    {% endif %}
+    <button type="submit">Submit Booking</button>
+  </form>
+
+{% endblock %}

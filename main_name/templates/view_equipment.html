@@ -1,0 +1,49 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<h1>View Equipment</h1>
+<h2>Search Equipment</h2>
+  <form method="get" action="{% url 'search_equipment' %}">
+    <label for="search_query">Search:</label>
+    <input type="text" id="search_query" name="q">
+    <button type="submit">Search</button>
+  </form>
+  <ul>
+<h2>Equipment List</h2>
+
+  <form method="get" action="{% url 'view_equipment' %}">
+    <label for="equipment_type">Filter by Equipment Type:</label>
+    <input type="text" id="equipment_type" name="equipment_type">
+    <button type="submit">Apply Filters</button>
+  </form>
+  <form method="get" action="{% url 'view_equipment' %}">
+    <label for="sort_by">Sort By:</label>
+    <select name="sort_by" id="sort_by">
+      <option value="name">Name</option>
+      <option value="type">Type</option>
+      <option value="return_date">Return Date</option>
+      <!-- Add more sorting options as needed -->
+    </select>
+    <button type="submit">Sort</button>
+  </form>
+
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Quantity</th>
+      <th>Availability</th>
+      <!-- Add more table headers as needed -->
+    </tr>
+    {% for equipment in equipments %}
+    <tr>
+      <td>{{ equipment.name }}</td>
+      <td>{{ equipment.type }}</td>
+      <td>{{ equipment.quantity }}</td>
+      <td>{{ equipment.availability }}</td>
+      <td><a href="{% url 'make_booking' equipment.id %}">Book Now</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+
+{% endblock %}

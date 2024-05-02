@@ -1,0 +1,30 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+  <h2>Equipment Usage History</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Equipment</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Returned?</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for booking in bookings %}
+        <tr>
+          <td>{{ booking.user }}</td>
+          <td>{{ booking.equipment }}</td>
+          <td>{{ booking.start_date }}</td>
+          <td>{{ booking.end_date }}</td>
+          <td>{{ booking.returned }}</td>
+
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'admin_dashboard' %}" class="btn btn-primary">Admin Dashboard</a>
+
+{% endblock %}

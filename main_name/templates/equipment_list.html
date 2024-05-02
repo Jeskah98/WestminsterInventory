@@ -1,0 +1,37 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<h2>Equipment List</h2>
+<p>Total Equipment Count: {{ total_count }}</p>
+<p>Available Equipment Count: {{ available_count }}</p>
+<p>Unavailable Equipment Count: {{ booked_count }}</p>
+<p>On-Site Equipment Count: {{ on_site_count }}</p>
+
+<table>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Quantity</th>
+      <th>Availability</th>
+      <th>Location</th>
+      <th>On-Site Only</th>
+      <!-- Add more table headers as needed -->
+    </tr>
+    {% for equipment in equipments %}
+    <tr>
+      <td>{{ equipment.name }}</td>
+      <td>{{ equipment.type }}</td>
+      <td>{{ equipment.quantity }}</td>
+      <td>{{ equipment.availability }}</td>
+      <td>{{ equipment.location }}</td>
+      <td>{{ equipment.on_site_only }}</td>
+      <td><a href="{% url 'edit_equipment' equipment.id %}">Edit</a></td>
+      <td><a href="{% url 'delete_equipment' equipment.id %}">Delete</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+<br>
+<a href="{% url 'add_equipment' %}">Add Equipment</a>
+<a href="{% url 'admin_dashboard' %}" class="btn btn-primary">Admin Dashboard</a>
+
+{% endblock %}

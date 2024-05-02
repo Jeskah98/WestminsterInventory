@@ -1,0 +1,17 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<h1>Admin Dashboard</h1>
+<h2>Pending User Requests</h2>
+<a href="{% url 'pending_registrations' %}" class="btn btn-primary">Pending User Registrations</a>
+<h2>Pending Booking Requests</h2>
+<a href="{% url 'pending_booking' %}" class="btn btn-primary">Pending Booking Requests</a>
+<h2>Equipment List</h2>
+<a href="{% url 'equipment_list' %}" class="btn btn-primary">Edit Equipment</a>
+<h2>Users:</h2>
+<a href="{% url 'user_list' %}">Update Role</a>
+<h2>Inventory Report</h2>
+<a href="{% url 'inventory_report' %}" class="btn btn-primary">Inventory Report</a>
+<h2>Equipment History</h2>
+<a href="{% url 'equipment_report' %}" class="btn btn-primary">Equipment Usage Report</a>
+{% endblock %}

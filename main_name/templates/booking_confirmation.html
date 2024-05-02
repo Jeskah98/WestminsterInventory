@@ -1,0 +1,7 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+  <h2> Booking Confirmation </h2>
+  <p>Booking Pending for {{ booking.user.id }}?</p>
+  <p>You will hear back shortly. Please check your dashboard</p>
+  <a href="{% url 'user_dashboard' %}" class="btn btn-primary">Your Dashboard</a>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+  <h2>Search Equipment</h2>
+  <form method="get" action="{% url 'search_equipment' %}">
+    <label for="search_query">Search:</label>
+    <input type="text" id="search_query" name="q">
+    <button type="submit">Search</button>
+  </form>
+  <ul>
+    {% for equipment in equipments %}
+      <li>{{ equipment.name }} - {{ equipment.type }} - {{ equipment.return_date }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<h1>User Dashboard</h1>
+<h3>Browse Inventory:</h3>
+<a href="{% url 'view_equipment' %}" class="btn btn-primary">View Equipment</a>
+<h3>Profile</h3>
+
+{% if messages %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+<h2>Bookings:</h3>
+<h3>Pending Bookings</h3>
+<ul>
+    {% for booking in pending_bookings %}
+      <li>{{ booking.equipment }} - {{ booking.date }}</li>->
+    {% empty %}
+      <li>No pending bookings</li>
+    {% endfor %}
+  </ul>
+  
+  <h3>Your Current Bookings</h3>
+  {% if current_bookings %}
+      <ul>
+          {% for booking in current_bookings %}
+              <li>
+                {{ booking.equipment }} - {{ booking.start_date }} to {{ booking.end_date }}
+                <form method="post" action="{% url 'return_booking' booking.id %}">
+                  {% csrf_token %}
+                  <button type="submit">Return</button>
+                </form>
+              </li>
+          {% endfor %}
+      </ul>
+  {% else %}
+      <p>No current reservations or bookings.</p>
+  {% endif %}
+
+  <h3>Past Bookings</h3>
+  {% if past_bookings %}
+      <ul>
+          {% for past_booking in past_bookings %}
+              <li>{{ past_booking.equipment }} - {{ past_booking.start_date }} to {{ past_booking.end_date }}</li>
+              <a href="{% url 'book_from_past_booking' past_booking.id %}" class="btn btn-primary">Book Again</a>
+              {% endfor %}
+      </ul>
+  {% else %}
+      <p>No past bookings.</p>
+  {% endif %}
+  <h3>Rejected Bookings</h3>
+  <ul>
+    {% for booking in rejected_bookings %}
+      <li>{{ booking.equipment }} - {{ booking.date }}</li>
+      <!-- Add more details as needed -->
+    {% empty %}
+      <li>No rejected bookings</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

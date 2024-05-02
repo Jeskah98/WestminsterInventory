@@ -1,0 +1,27 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+  <h2>Inventory Status Report</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Return Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for booking in overdue_bookings %}
+      <tr>
+        <td>{{ booking.equipment.name }}</td>
+        <td>{{ booking.equipment.type }}</td>
+        <td>{{ booking.end_date }}</td>
+        <td>OVERDUE</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'admin_dashboard' %}" class="btn btn-primary">Admin Dashboard</a>
+
+{% endblock %}

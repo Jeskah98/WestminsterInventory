@@ -1,0 +1,9 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+    <h2>Book Equipment from Past Booking</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Book Equipment</button>
+    </form>
+{% endblock %}
